@@ -10,49 +10,53 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model TeamMember {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  skills    Skill[]
-  tickets   Ticket[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Customer {
+  id           Int          @id @default(autoincrement())
+  username     String
+  passwordHash String
+  designFiles  DesignFile[]
+  feedback     Feedback[]
 }
 
-model Skill {
-  id          String       @id @default(uuid())
-  name        String       @unique
-  teamMembers TeamMember[]
-  tickets     Ticket[]
-  createdAt   DateTime     @default(now())
+model Designer {
+  id           Int          @id @default(autoincrement())
+  username     String
+  passwordHash String
+  designFiles  DesignFile[]
+  annotation   Annotation[]
 }
 
-model Ticket {
-  id             String       @id @default(uuid())
-  title          String
-  description    String
-  deadline       DateTime?
-  status         TicketStatus @default(OPEN)
-  priority       Priority     @default(MEDIUM)
-  requiredSkills Skill[]
-  assignedTo     TeamMember?  @relation(fields: [assigneeId], references: [id])
-  assigneeId     String?
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+model DesignFile {
+  id                Int          @id @default(autoincrement())
+  key               String
+  version           Int
+  date              DateTime
+  externalReference String?
+  designer          Designer     @relation(fields: [designerId], references: [id])
+  designerId        Int
+  customer          Customer     @relation(fields: [customerId], references: [id])
+  customerId        Int
+  feedbacks         Feedback[]
+  annotations       Annotation[]
 }
 
-enum TicketStatus {
-  OPEN
-  IN_PROGRESS
-  REVIEW
-  COMPLETED
-  CLOSED
+model Feedback {
+  id           Int        @id @default(autoincrement())
+  date         DateTime
+  rating       Int
+  description  String
+  designFile   DesignFile @relation(fields: [designFileId], references: [id])
+  designFileId Int
+  customer     Customer   @relation(fields: [customerId], references: [id])
+  customerId   Int
 }
 
-enum Priority {
-  LOW
-  MEDIUM
-  HIGH
-  URGENT
+model Annotation {
+  id           Int        @id @default(autoincrement())
+  date         DateTime
+  description  String
+  designFile   DesignFile @relation(fields: [designFileId], references: [id])
+  designFileId Int
+  designer     Designer   @relation(fields: [designerId], references: [id])
+  designerId   Int
 }
