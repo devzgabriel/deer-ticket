@@ -57,7 +57,7 @@ type Ticket = {
   description: string
   deadline: string
   assignee: string
-  status: "Pending" | "In Progress" | "Completed"
+  status: string
 }
 
 export default function ClientRequestForm() {
