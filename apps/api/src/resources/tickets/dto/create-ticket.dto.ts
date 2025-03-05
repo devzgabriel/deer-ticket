@@ -1,4 +1,4 @@
-import { Priority, TicketStatus } from '@prisma/client';
+import { Priority, TicketStatus } from '.prisma/client';
 import {
   IsArray,
   IsDateString,

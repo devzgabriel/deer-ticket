@@ -1,3 +1,4 @@
+import { TicketStatus } from '.prisma/client';
 import {
   Body,
   Controller,
@@ -8,7 +9,6 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { TicketStatus } from '@prisma/client';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { UpdateTicketDto } from './dto/update-ticket.dto';
 import { TicketsService } from './tickets.service';
