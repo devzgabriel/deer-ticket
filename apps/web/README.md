@@ -4,7 +4,7 @@
 
 - [Vite](https://vitejs.dev/)
 - [React](https://reactjs.org/)
-- [Tailwind CSS v4](https://tailwindcss.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
 - [Lupi](https://www.npmjs.com/package/lupi)
 
 ### Installation
